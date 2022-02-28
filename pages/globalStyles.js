@@ -21,6 +21,20 @@ body {
     font-style: normal;
     font-weight: 400;
 }
+
+header{   
+  padding: 1rem 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: ${theme.colors.white};
+}
   
 h1 {
     line-height: 4rem;
