@@ -1,4 +1,4 @@
-export const primaryFont = "'Manrope', sans-serif";
+export const primaryFont = "'Open Sans', sans-serif";
 
 export const typeScale = {
   header1: "3.5rem",
