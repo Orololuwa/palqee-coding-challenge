@@ -10,11 +10,6 @@ const slideInLeft = keyframes`
 `;
 
 const Nav = styled.nav`
-  summary {
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
   a {
     display: flex;
     align-items: center;
@@ -22,6 +17,7 @@ const Nav = styled.nav`
     transition: all 0.2s ease-out;
     position: relative;
     color: ${({ theme }) => theme.colors.black};
+    font-size: ${({ theme }) => theme.typeScale.bodyText4};
     letter-spacing: 3.5px;
     text-decoration: none;
 
@@ -59,6 +55,17 @@ const Nav = styled.nav`
         border-radius: 5px;
         background: ${({ theme }) => theme.colors.black};
       }
+    }
+  }
+
+  summary {
+    cursor: pointer;
+  }
+
+  details {
+    a {
+      margin-left: 10px;
+      font-size: ${({ theme }) => theme.typeScale.bodyText5};
     }
   }
 `;

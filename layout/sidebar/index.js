@@ -19,9 +19,9 @@ const SideBar = () => {
           <details>
             <summary>Star Wars</summary>
             <span
-              className={/characters*/g.test(router.pathname) ? "active" : ""}
+              className={/starwars*/g.test(router.pathname) ? "active" : ""}
             >
-              <Link href="/characters">Characters</Link>
+              <Link href="/starwars/characters">Characters</Link>
             </span>
           </details>
         </Nav>

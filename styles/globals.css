@@ -22,7 +22,7 @@ aside {
 }
 
 header {
-  padding: 1rem 2.5rem;
+  padding: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -40,4 +40,10 @@ details > summary {
 }
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+@media only screen and (max-width: 48em) {
+  aside {
+    display: none;
+  }
 }
