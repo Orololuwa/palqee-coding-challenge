@@ -1,13 +1,14 @@
 import { ThemeProvider } from "styled-components";
 import theme from "theme";
 import GlobalStyle from "./globalStyles";
+import { StoreContextProvider } from "context/storeContext";
 import Header from "layout/header";
 import SideBar from "layout/sidebar";
-import 'styles/globals.css'
+import "styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
+    <StoreContextProvider>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <SideBar />
@@ -16,6 +17,6 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
         </div>
       </ThemeProvider>
-    </>
+    </StoreContextProvider>
   );
 }

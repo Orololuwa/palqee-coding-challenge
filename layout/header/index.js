@@ -1,14 +1,10 @@
-import { useState } from "react";
+import { useContext } from "react";
+import StoreContext from "context/storeContext";
 import { IoMenuOutline } from "react-icons/io5";
 import Drawer from "containers/drawer";
 
 const Header = () => {
-  const [showSideDrawer, setShowSideDrawer] = useState(false);
-
-  const toggleSideDrawerShow = (val) => {
-    setShowSideDrawer(val);
-  };
-
+  const ctx = useContext(StoreContext);
   const date = new Date();
 
   return (
@@ -17,18 +13,10 @@ const Header = () => {
         <IoMenuOutline
           size={25}
           className="menuIcon"
-          onClick={() => toggleSideDrawerShow(true)}
+          onClick={ctx.toggleSideDrawer}
         />
         <p>{date.toDateString()}</p>
       </header>
-
-      <Drawer
-        className="drawer"
-        isOpen={showSideDrawer}
-        onClose={() => toggleSideDrawerShow(false)}
-      >
-        ...side-
-      </Drawer>
     </>
   );
 };
