@@ -14,7 +14,7 @@ body {
     width: 100%;
     height: 100vh;
     line-height: 2.1rem;
-    font-size: ${theme.typeScale.bodyText3};
+    font-size: ${theme.typeScale.bodyText4};
     font-family: ${theme.primaryFont};
     color: ${theme.colors.black};
     background: ${theme.colors.gray};

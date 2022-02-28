@@ -34,3 +34,10 @@ header {
   width: 100%;
   flex-grow: 1;
 }
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
