@@ -17,6 +17,7 @@ body {
     font-size: ${theme.typeScale.bodyText3};
     font-family: ${theme.primaryFont};
     color: ${theme.colors.black};
+    background: ${theme.colors.gray};
     font-style: normal;
     font-weight: 400;
 }
