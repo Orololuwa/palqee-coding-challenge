@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import Table from "react-data-table-component";
+import Pagination from "components/Pagination";
 import theme from "theme";
 
 //Table data
@@ -117,12 +118,21 @@ const DataTable = () => {
   if (error) return <div>Whoops something went wrong..</div>;
 
   return (
-    <Table
-      columns={columns}
-      data={data.allPeople.people}
-      responsive
-      customStyles={customStyles}
-    />
+    <>
+      <Table
+        columns={columns}
+        data={data.allPeople.people}
+        responsive
+        customStyles={customStyles}
+      />
+      <Pagination
+        className="pagination-bar"
+        currentPage={1}
+        totalCount={data.allPeople.people.length}
+        pageSize={5}
+        onPageChange={(page) => onPageChange(page)}
+      />
+    </>
   );
 };
 
