@@ -20,7 +20,16 @@ const BreadCrumbs = (props) => {
   }, [router.asPath]);
 
   return (
-    <div style={{ padding: ".25rem 1rem" }}>
+    <div
+      style={{
+        padding: ".25rem 1rem",
+        background: "white",
+        position: "sticky",
+        top: "52.5px",
+        right: "0",
+        zIndex: "600000",
+      }}
+    >
       {breadcrumbs.map((crumb, idx) => (
         <Crumb {...crumb} key={idx} last={idx === breadcrumbs.length - 1} />
       ))}

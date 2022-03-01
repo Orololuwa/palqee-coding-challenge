@@ -1,29 +1,8 @@
 import { useEffect, useState } from "react";
 import StarWars from "..";
-import { gql, useQuery } from "@apollo/client";
-
-const ALL_CHARACTERS = gql`
-  {
-    allPeople {
-      people {
-        name
-        hairColor
-        skinColor
-        eyeColor
-        gender
-        homeworld {
-          name
-        }
-      }
-    }
-  }
-`;
+import DataTable from "./dataTable";
 
 const Characters = () => {
-  const { loading, error, data } = useQuery(ALL_CHARACTERS);
-
-  console.log(data);
-
   const [quote, setQuote] = useState("");
 
   useEffect(() => {
@@ -36,7 +15,7 @@ const Characters = () => {
     <StarWars>
       <h5>Characters</h5>
       <p>{quote}</p>
-      datatable
+      <DataTable />
     </StarWars>
   );
 };

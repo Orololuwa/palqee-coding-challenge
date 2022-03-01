@@ -7,7 +7,7 @@ const StarWars = (props) => {
       <BreadCrumbs />
       <StarWarsStyled>
         <div>{props.children}</div>
-      </StarWarsStyled>{" "}
+      </StarWarsStyled>
     </>
   );
 };
