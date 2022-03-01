@@ -5,9 +5,9 @@ const initialState = {
   toggleSideDrawer: () => {},
 };
 
-const StoreContext = createContext(initialState);
+const LayoutContext = createContext(initialState);
 
-export const StoreContextProvider = (props) => {
+export const LayoutContextProvider = (props) => {
   const [showSideDrawer, setShowSideDrawer] = useState(true);
 
   const toggleSideDrawer = () => {
@@ -15,12 +15,12 @@ export const StoreContextProvider = (props) => {
   };
 
   return (
-    <StoreContext.Provider
+    <LayoutContext.Provider
       value={{ isOpen: showSideDrawer, toggleSideDrawer: toggleSideDrawer }}
     >
       {props.children}
-    </StoreContext.Provider>
+    </LayoutContext.Provider>
   );
 };
 
-export default StoreContext;
+export default LayoutContext;

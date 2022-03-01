@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import theme from "theme";
 import GlobalStyle from "./globalStyles";
-import { StoreContextProvider } from "context/storeContext";
+import { LayoutContextProvider } from "context/layoutContext";
 import Header from "layout/header";
 import SideBar from "layout/sidebar";
 import "styles/globals.css";
@@ -12,15 +12,15 @@ import {
   HttpLink,
 } from "@apollo/client";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: new HttpLink({ uri: "http://localhost:57541" }),
   cache: new InMemoryCache(),
 });
 
 export default function App({ Component, pageProps }) {
   return (
-    <ApolloProvider client={client}>
-      <StoreContextProvider>
+    <LayoutContextProvider>
+      <ApolloProvider client={client}>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
           <SideBar />
@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }) {
             <Component {...pageProps} />
           </div>
         </ThemeProvider>
-      </StoreContextProvider>{" "}
-    </ApolloProvider>
+      </ApolloProvider>
+    </LayoutContextProvider>
   );
 }

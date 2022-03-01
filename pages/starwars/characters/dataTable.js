@@ -1,4 +1,3 @@
-import { gql, useQuery } from "@apollo/client";
 import Table from "react-data-table-component";
 import Pagination from "components/Pagination";
 import theme from "theme";
@@ -89,46 +88,19 @@ const columns = [
   },
 ];
 
-//query data
-
-const ALL_CHARACTERS = gql`
-  {
-    allPeople {
-      people {
-        id
-        name
-        hairColor
-        skinColor
-        eyeColor
-        gender
-        homeworld {
-          name
-        }
-      }
-    }
-  }
-`;
-
-const DataTable = () => {
-  const { loading, error, data } = useQuery(ALL_CHARACTERS);
-  console.log(data);
-
-  if (loading) return <div>Loading...</div>;
-
-  if (error) return <div>Whoops something went wrong..</div>;
-
+const DataTable = ({ data }) => {
   return (
     <>
       <Table
         columns={columns}
-        data={data.allPeople.people}
+        data={data}
         responsive
         customStyles={customStyles}
       />
       <Pagination
         className="pagination-bar"
         currentPage={1}
-        totalCount={data.allPeople.people.length}
+        totalCount={data.length}
         pageSize={5}
         onPageChange={(page) => onPageChange(page)}
       />

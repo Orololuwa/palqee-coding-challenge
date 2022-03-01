@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import StarWars from "..";
 import DataTable from "./dataTable";
+import { gql, useQuery } from "@apollo/client";
+import { client } from "pages/_app";
 
-const Characters = () => {
+const Characters = ({ data }) => {
   const [quote, setQuote] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -20,12 +22,44 @@ const Characters = () => {
   return (
     <StarWars>
       <h5>Characters</h5>
-      <p style={{ marginBottom: "10px" }}>
+      <q style={{ color: "Highlight" }}>
         {loading ? "Loading Quote..." : error ? "Error Loading Quote" : quote}
-      </p>
-      <DataTable />
+      </q>
+      <div>&nbsp;</div>
+      <DataTable data={data} />
     </StarWars>
   );
 };
 
 export default Characters;
+
+export const getStaticProps = async () => {
+  try {
+    const { data } = await client.query({
+      query: gql`
+        query {
+          allPeople {
+            people {
+              id
+              name
+              hairColor
+              skinColor
+              eyeColor
+              gender
+              homeworld {
+                name
+              }
+            }
+          }
+        }
+      `,
+    });
+    return {
+      props: {
+        data: data.allPeople.people,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+  }
+};

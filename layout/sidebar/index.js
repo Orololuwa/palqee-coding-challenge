@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import StoreContext from "context/storeContext";
+import LayoutContext from "context/layoutContext";
 import Link from "next/link";
 import Nav from "./Nav";
 import { useRouter } from "next/router";
 
 const SideBar = () => {
-  const ctx = useContext(StoreContext);
+  const ctx = useContext(LayoutContext);
   const router = useRouter();
 
   return (
