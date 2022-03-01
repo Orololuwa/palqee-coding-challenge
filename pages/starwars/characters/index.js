@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import StarWars from "..";
 import DataTable from "./dataTable";
-import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { gql } from "@apollo/client";
 import { client } from "pages/_app";
 
 const Characters = ({ data }) => {
+  const router = useRouter();
+
   const [quote, setQuote] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -17,7 +20,7 @@ const Characters = ({ data }) => {
         setLoading(false);
       })
       .catch((err) => setError(true));
-  }, []);
+  }, [router.pathname]);
 
   return (
     <StarWars>
