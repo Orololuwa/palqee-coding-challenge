@@ -1,104 +1,22 @@
-import Table from "react-data-table-component";
 import Pagination from "components/Pagination";
-import theme from "theme";
 import { useMemo, useState } from "react";
+import { sortCharacters, filterCharacters } from "utils/helpers";
+import { IoFilterOutline } from "react-icons/io5";
+import TableWrapper from "./tableStyles";
 
-//Table data
-const customStyles = {
-  rows: {
-    style: {
-      minHeight: "52px",
-      borderBottomColor: theme.colors.black,
-      "&:not(:last-of-type)": {
-        borderBottomStyle: "solid",
-        borderBottomWidth: "1px",
-        borderBottomColor: theme.colors.black,
-      },
-    },
-  },
-  headCells: {
-    style: {
-      paddingLeft: "8px",
-      paddingRight: "8px",
-      fontSize: theme.typeScale.bodyText4,
-      padding: "10px 8px",
-      fontWeight: "bold",
-    },
-  },
-  head: {
-    style: {
-      backgroundColor: theme.colors.gray,
-    },
-  },
-  body: {
-    style: {
-      padding: "0 1rem",
-    },
-  },
-  cells: {
-    style: {
-      paddingLeft: "8px",
-      paddingRight: "8px",
-      fontSize: theme.typeScale.bodyText4,
-      padding: "10px 8px",
-    },
-  },
-  headRow: {
-    style: {
-      backgroundColor: theme.colors.gray,
-      minHeight: "52px",
-      borderBottomWidth: ".5px",
-      borderBottomStyle: "solid",
-      borderBottomColor: theme.colors.black,
-      padding: "0 1rem",
-    },
-    denseStyle: {
-      minHeight: "32px",
-    },
-  },
-};
-
-const columns = [
-  {
-    name: "Name",
-    selector: (row) => row.name,
-  },
-  {
-    name: "Hair Color",
-    selector: (row) => row.hairColor,
-  },
-  {
-    name: "Skin Color",
-    selector: (row) => row.skinColor,
-  },
-  {
-    name: "Eye Color",
-    selector: (row) => row.eyeColor,
-  },
-  {
-    name: "Gender",
-    selector: (row) => row.gender,
-  },
-  {
-    name: "Gender",
-    selector: (row) => row.gender,
-  },
-  {
-    name: "Home World",
-    selector: (row) => row.homeworld.name,
-  },
-];
-
-const DataTable = ({ data }) => {
+const DataTable = (props) => {
+  const [data, setData] = useState([...props.data]);
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filter, setFilter] = useState("default");
+  const [sort, setSort] = useState("default");
 
   //Page change function
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
     return data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, data]);
 
   //Pagesize change function
   const pageSizeHandler = (e) => {
@@ -107,19 +25,110 @@ const DataTable = ({ data }) => {
     setPageSize(value);
   };
 
+  //sort function handler
+  const onSortChangeHandler = (e) => {
+    const { value } = e.target;
+    setSort(value);
+
+    if (value === "default") {
+      setData(props.data);
+    } else if (value === "homeworld") {
+      setData(sortCharacters([...data], value));
+    } else {
+      setData(sortCharacters([...data], value));
+    }
+  };
+
+  //filter function handler
+  const onFilterChangeHandler = (e) => {
+    const { value } = e.target;
+    setFilter(value);
+
+    if (value === "default") {
+      setData(data);
+    } else if (value === "homeworld") {
+      setData(filterCharacters([...data], value));
+    } else {
+      setData(filterCharacters([...data], value));
+    }
+  };
+
   return (
     <>
-      <Table
-        columns={columns}
-        data={currentTableData}
-        responsive
-        customStyles={customStyles}
-      />
+      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <form>
+          <label
+            htmlFor="sort"
+            style={{ fontSize: "14px", marginRight: "5px" }}
+          >
+            Sorter
+          </label>
+          <select id="sort" value={sort} onChange={onSortChangeHandler}>
+            <option value="default">default</option>
+            <option value="name">name</option>
+            <option value="hairColor">hair color</option>
+            <option value="skinColor">skin color</option>
+            <option value="eyeColor">eye color</option>
+            <option value="gender">gender</option>
+            <option value="homeworld">home world</option>
+          </select>
+        </form>
+        <form>
+          <label
+            htmlFor="filter"
+            style={{ fontSize: "14px", marginRight: "5px" }}
+          >
+            Filter
+          </label>
+          <select id="filter" value={filter} onChange={onFilterChangeHandler}>
+            <option value="default">default</option>
+            <option value="hairColor">hair color</option>
+            <option value="eyeColor">eye color</option>
+            <option value="homeworld">home world</option>
+          </select>
+        </form>
+      </div>
+      <TableWrapper>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>
+              <Col>
+                <span>Hair Color</span>
+                <IoFilterOutline size={16} />
+              </Col>
+            </th>
+            <th>Skin Color</th>
+            <th>
+              <Col>
+                <span>Eye Color</span>
+                <IoFilterOutline size={16} />
+              </Col>
+            </th>
+            <th>gender</th>
+            <th>Home World</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentTableData.map((row) => (
+            <tr key={row.id}>
+              <td>{row.name}</td>
+              <td>{row.hairColor}</td>
+              <td>{row.skinColor}</td>
+              <td>{row.eyeColor}</td>
+              <td>{row.gender}</td>
+              <td>{row.homeworld.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </TableWrapper>
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          maxHeight: "70px",
+          height: "50px",
         }}
       >
         <form>
