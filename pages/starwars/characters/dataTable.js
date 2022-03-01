@@ -1,14 +1,21 @@
 import Pagination from "components/Pagination";
 import { useMemo, useState } from "react";
-import { sortCharacters, filterCharacters } from "utils/helpers";
+import { sortCharacters } from "utils/helpers";
 import { IoFilterOutline } from "react-icons/io5";
+import styled from "styled-components";
 import TableWrapper from "./tableStyles";
+
+const Col = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+`;
 
 const DataTable = (props) => {
   const [data, setData] = useState([...props.data]);
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filter, setFilter] = useState("default");
   const [sort, setSort] = useState("default");
 
   //Page change function
@@ -40,17 +47,8 @@ const DataTable = (props) => {
   };
 
   //filter function handler
-  const onFilterChangeHandler = (e) => {
-    const { value } = e.target;
-    setFilter(value);
-
-    if (value === "default") {
-      setData(data);
-    } else if (value === "homeworld") {
-      setData(filterCharacters([...data], value));
-    } else {
-      setData(filterCharacters([...data], value));
-    }
+  const filter = (val) => {
+    setData(sortCharacters([...data], val));
   };
 
   return (
@@ -73,20 +71,6 @@ const DataTable = (props) => {
             <option value="homeworld">home world</option>
           </select>
         </form>
-        <form>
-          <label
-            htmlFor="filter"
-            style={{ fontSize: "14px", marginRight: "5px" }}
-          >
-            Filter
-          </label>
-          <select id="filter" value={filter} onChange={onFilterChangeHandler}>
-            <option value="default">default</option>
-            <option value="hairColor">hair color</option>
-            <option value="eyeColor">eye color</option>
-            <option value="homeworld">home world</option>
-          </select>
-        </form>
       </div>
       <TableWrapper>
         <thead>
@@ -95,18 +79,29 @@ const DataTable = (props) => {
             <th>
               <Col>
                 <span>Hair Color</span>
-                <IoFilterOutline size={16} />
+                <IoFilterOutline
+                  size={16}
+                  onClick={() => filter("hairColor")}
+                />
               </Col>
             </th>
             <th>Skin Color</th>
             <th>
               <Col>
                 <span>Eye Color</span>
-                <IoFilterOutline size={16} />
+                <IoFilterOutline size={16} onClick={() => filter("eyeColor")} />
               </Col>
             </th>
             <th>gender</th>
-            <th>Home World</th>
+            <th>
+              <Col>
+                <span>Home World</span>
+                <IoFilterOutline
+                  size={16}
+                  onClick={() => filter("homeworld")}
+                />
+              </Col>
+            </th>
           </tr>
         </thead>
         <tbody>

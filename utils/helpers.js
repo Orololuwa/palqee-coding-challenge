@@ -17,7 +17,7 @@ export const sortCharacters = (data, value) => {
 };
 
 export const filterCharacters = (data, value) => {
-  return data.filter((character) =>
-    character.includes(value.name ? value.name : value)
+  return data.filter(
+    (character) => character.value.indexOf(value.toLowerCase()) > -1
   );
 };
