@@ -19,7 +19,7 @@ const DrawerCtx = styled.div`
     placement === "bottom" || placement === "top" ? "25rem" : "100vh"};
   animation: ${slideInLeft} 0.2s;
   padding: 1rem;
-  z-index: 50001;
+  z-index: 5000001;
   background: ${({ theme }) => theme.colors.white};
 `;
 
