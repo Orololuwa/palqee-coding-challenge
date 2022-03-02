@@ -4,6 +4,8 @@ import { sortCharacters } from "utils/helpers";
 import { IoFilterOutline } from "react-icons/io5";
 import styled from "styled-components";
 import TableWrapper from "./tableStyles";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Col = styled.div`
   display: flex;
@@ -13,6 +15,9 @@ const Col = styled.div`
 `;
 
 const DataTable = (props) => {
+  const router = useRouter();
+  const path = router.asPath;
+
   const [data, setData] = useState([...props.data]);
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +34,7 @@ const DataTable = (props) => {
   const pageSizeHandler = (e) => {
     const { value } = e.target;
 
-    setPageSize(value);
+    setPageSize(+value);
   };
 
   //sort function handler
@@ -107,7 +112,9 @@ const DataTable = (props) => {
         <tbody>
           {currentTableData.map((row) => (
             <tr key={row.id}>
-              <td>{row.name}</td>
+              <td>
+                <Link href={`${path}/${row.id}`}>{row.name}</Link>
+              </td>
               <td>{row.hairColor}</td>
               <td>{row.skinColor}</td>
               <td>{row.eyeColor}</td>
